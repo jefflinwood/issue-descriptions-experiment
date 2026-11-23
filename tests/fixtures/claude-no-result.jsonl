@@ -1,0 +1,4 @@
+{"type":"system","subtype":"init","session_id":"sess-synthetic-2","model":"claude-haiku-5-5"}
+{"type":"assistant","session_id":"sess-synthetic-2","message":{"id":"msg_a","model":"claude-haiku-5-5","content":[{"type":"tool_use","id":"toolu_a","name":"Agent","input":{}}],"usage":{"input_tokens":7,"cache_creation_input_tokens":100,"cache_read_input_tokens":0,"output_tokens":9}}}
+{"type":"assistant","session_id":"sess-synthetic-2","message":{"id":"msg_a","model":"claude-haiku-5-5","content":[],"usage":{"input_tokens":7,"cache_creation_input_tokens":100,"cache_read_input_tokens":0,"output_tokens":11}}}
+{"type":"assistant","session_id":"sess-synthetic-2","message":{"id":"msg_b","model":"claude-haiku-5-5","content":[{"type":"text","text":"partial"}],"usage":{"input_tokens":3,"cache_creation_input_tokens":0,"cache_read_input_tokens":100,"output_tokens":5}}}

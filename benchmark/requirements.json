@@ -1,0 +1,230 @@
+{
+  "status": "frozen 2026-11-21 for protocol 002.2; stakeholder answers and D4 review approved by the study owner",
+  "workload": "reorder",
+  "disclosure_levels": {
+    "explicit": "stated directly in the description or the common wrapper",
+    "partial": "some consequential part is stated or strongly implied; other parts are absent",
+    "absent": "not stated; any behavior is the agent's own choice"
+  },
+  "criteria": [
+    {
+      "id": "AC01",
+      "contract": 1,
+      "kind": "acceptance",
+      "tests": "test_ac01_",
+      "text": "Each order page offers a reorder control to people who can view the order (the owning customer, staff).",
+      "disclosure": {
+        "D1": "partial",
+        "D2": "explicit",
+        "D3": "explicit",
+        "D4": "explicit"
+      },
+      "notes": {
+        "D1": "Reordering is requested for customers; the control's location and staff access are absent."
+      }
+    },
+    {
+      "id": "AC02",
+      "contract": 2,
+      "kind": "acceptance",
+      "tests": "test_ac02_",
+      "text": "Using it opens the new-order form prefilled with the original quantities of active products (repeated lines summed; staff: account preselected) and does not place an order by itself.",
+      "disclosure": {
+        "D1": "absent",
+        "D2": "explicit",
+        "D3": "explicit",
+        "D4": "explicit"
+      }
+    },
+    {
+      "id": "AC03",
+      "contract": 3,
+      "kind": "acceptance",
+      "tests": "test_ac03_",
+      "text": "Customers can reorder only their own orders and never see another account's items; staff can reorder any order.",
+      "disclosure": {
+        "D1": "partial",
+        "D2": "explicit",
+        "D3": "explicit",
+        "D4": "explicit"
+      },
+      "notes": {
+        "D1": "The common wrapper requires preserving access rules; staff reordering for any account is absent."
+      }
+    },
+    {
+      "id": "AC04",
+      "contract": 4,
+      "kind": "acceptance",
+      "tests": "test_ac04_",
+      "text": "Inactive products are left out and the page names them as unavailable; an order with only inactive products prefills nothing and says so.",
+      "disclosure": {
+        "D1": "absent",
+        "D2": "explicit",
+        "D3": "explicit",
+        "D4": "explicit"
+      }
+    },
+    {
+      "id": "AC05",
+      "contract": 5,
+      "kind": "acceptance",
+      "tests": "test_ac05_",
+      "text": "Submitting creates one new order for the original account at current prices with a new order number; the original order is unchanged.",
+      "disclosure": {
+        "D1": "absent",
+        "D2": "explicit",
+        "D3": "explicit",
+        "D4": "explicit"
+      }
+    },
+    {
+      "id": "AC06",
+      "contract": 6,
+      "kind": "acceptance",
+      "tests": "test_ac06_",
+      "text": "Delivery due date and requested ship date are not copied; the due date is still required.",
+      "disclosure": {
+        "D1": "absent",
+        "D2": "explicit",
+        "D3": "explicit",
+        "D4": "explicit"
+      }
+    },
+    {
+      "id": "AC07",
+      "contract": 7,
+      "kind": "acceptance",
+      "tests": "test_ac07_",
+      "text": "The shipping method is preselected from the original order.",
+      "disclosure": {
+        "D1": "absent",
+        "D2": "explicit",
+        "D3": "explicit",
+        "D4": "explicit"
+      }
+    },
+    {
+      "id": "AC08",
+      "contract": 8,
+      "kind": "acceptance",
+      "tests": "test_ac08_",
+      "text": "The plain new-order form and existing access rules are unchanged.",
+      "disclosure": {
+        "D1": "partial",
+        "D2": "explicit",
+        "D3": "explicit",
+        "D4": "explicit"
+      },
+      "notes": {
+        "D1": "Unchanged access rules follow from the common wrapper; the unchanged plain form is absent."
+      }
+    },
+    {
+      "id": "AC09",
+      "contract": 9,
+      "kind": "acceptance",
+      "tests": "test_ac09_",
+      "text": "No schema or dependency changes; existing routes kept; at most one added route, under /orders/.",
+      "disclosure": {
+        "D1": "absent",
+        "D2": "explicit",
+        "D3": "explicit",
+        "D4": "explicit"
+      }
+    },
+    {
+      "id": "AC10",
+      "contract": 10,
+      "kind": "composite",
+      "readme_pattern": "(?i)re-?order|order(ing)? again|buy again|repeat (an |a |the )?order",
+      "text": "Original tests still pass, candidate tests pass and were added or changed, and README documents reordering.",
+      "components": [
+        "regression",
+        "candidate_tests",
+        "tests_changed",
+        "readme_documents_query"
+      ],
+      "disclosure": {
+        "D1": "explicit",
+        "D2": "explicit",
+        "D3": "explicit",
+        "D4": "explicit"
+      },
+      "notes": {
+        "all": "Tests and README documentation are required by the common wrapper. The static key keeps the name readme_documents_query for compatibility; here it means the README documents reordering."
+      }
+    }
+  ],
+  "minimal_outcome": [
+    {
+      "id": "MIN-REORDER",
+      "tests": "test_min_reorder_recreates_active_items",
+      "text": "A reorder control (on the order page, else the orders list) leads to one new order for the same account with the original active products and summed quantities, either directly or after submitting the form it shows with a due date.",
+      "justification": "D1 asks to reorder a past order without saying how; both one-click and prefill count."
+    },
+    {
+      "id": "MIN-AUTH",
+      "tests": "test_min_reorder_never_crosses_accounts",
+      "text": "No reorder control, retargeted at another account's order, and no common reorder URL creates an order for another account, changes an order, or shows another account's quantities.",
+      "justification": "The common wrapper requires preserving existing access rules in every condition."
+    }
+  ],
+  "primary_outcome": "Agent session completed (exit 0, no timeout, nonempty change) AND every criterion AC01–AC10 passes AND the immutable original regression suite passes, within the frozen limits.",
+  "d3_d4_examples": {
+    "1": [
+      "AC01"
+    ],
+    "2": [
+      "AC02"
+    ],
+    "3": [
+      "AC02"
+    ],
+    "4": [
+      "AC03"
+    ],
+    "5": [
+      "AC03"
+    ],
+    "6": [
+      "AC04"
+    ],
+    "7": [
+      "AC04"
+    ],
+    "8": [
+      "AC05"
+    ],
+    "9": [
+      "AC06"
+    ],
+    "10": [
+      "AC07"
+    ],
+    "11": [
+      "AC08"
+    ]
+  },
+  "d3_d4_equivalence_review": {
+    "status": "approved",
+    "reviewer": "study owner",
+    "date": "2026-11-21",
+    "notes": "D4 (noisy issue thread) reviewed: reversals unambiguous, noise adds no requirement, final state matches D3."
+  },
+  "descriptions": {
+    "D1": "One-line request only.",
+    "D2": "Request plus the approved product decisions and scope.",
+    "D3": "D2 plus 11 acceptance examples, repository entry points, constraints, and verification guidance.",
+    "D4": "Realistic noisy issue thread containing every D3 fact verbatim (final decisions, examples, entry points, constraints, verification), plus noise that adds no requirement."
+  },
+  "d4_noise_inventory": [
+    "Abandoned idea: clone the order row and place it with one click (developer).",
+    "Superseded decision 1: product first accepts one-click placement, then explicitly reverses to prefill-only.",
+    "Superseded decision 2: product first says to carry the requested ship date over, then explicitly reverses (no dates copied).",
+    "Declined scope creep: adding reorder to the JSON API and MCP tools is declined (consistent with D3's route limit).",
+    "Unrelated aside: slow Render deploy, explicitly deferred to a separate issue.",
+    "Social chatter: customer-call anecdote, a thumbs-up on example 6, the developer unassigning themselves."
+  ],
+  "d3_d4_comparison": "D3 vs D4 measures robustness to a realistic noisy issue with the same final facts, not verbosity alone. Equivalence review checks that every D3 fact appears in D4's final state and that the noise neither adds a requirement nor leaves a reversal ambiguous."
+}

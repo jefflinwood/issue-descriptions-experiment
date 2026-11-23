@@ -1,0 +1,83 @@
+{
+  "protocol_version": "002.1",
+  "status": "frozen 2026-11-21 after pilots; D3/D4 equivalence review not recorded (see protocol.md)",
+  "source": {
+    "repository": "https://github.com/jefflinwood/ridgeline.git",
+    "revision": "353c3ccdf3acdaae9acae78b5132241061b5decc",
+    "local_override": null
+  },
+  "python": null,
+  "dependencies": {"install": "pip", "requirements_file": "requirements-dev.txt"},
+  "seed": 20261120,
+  "blocks": 5,
+  "max_replacements_per_attempt": 1,
+  "limits": {"agent_timeout_seconds": 1800, "command_timeout_seconds": 600, "terminate_grace_seconds": 10},
+  "common_instructions": "descriptions/common.txt",
+  "descriptions": {
+    "D1": "descriptions/d1-vague.md",
+    "D2": "descriptions/d2-clarified.md",
+    "D3": "descriptions/d3-agent-ready.md",
+    "D4": "descriptions/d4-expanded.md"
+  },
+  "configurations": [
+    {
+      "id": "terra", "label": "OpenAI Terra", "provider": "openai", "harness": "codex",
+      "executable": "codex", "cli_version": "codex-cli 0.171.0",
+      "model": "gpt-6.1-terra", "reasoning_effort": "medium", "settings_status": "frozen-after-pilot",
+      "model_selection": {"rule": "latest Terra family member", "date": "2026-11-20",
+                          "source": "https://developers.openai.com/api/docs/models"}
+    },
+    {
+      "id": "luna", "label": "OpenAI Luna", "provider": "openai", "harness": "codex",
+      "executable": "codex", "cli_version": "codex-cli 0.171.0",
+      "model": "gpt-6-luna", "reasoning_effort": "medium", "settings_status": "frozen-after-pilot",
+      "model_selection": {"rule": "latest Luna family member", "date": "2026-11-20",
+                          "source": "https://developers.openai.com/api/docs/models"}
+    },
+    {
+      "id": "sonnet", "label": "Anthropic Sonnet", "provider": "anthropic", "harness": "claude_code",
+      "executable": "claude", "cli_version": "2.1.330 (Claude Code)",
+      "model": "claude-sonnet-5-5", "effort": "medium", "thinking_tokens": null, "auth_mode": "oauth",
+      "settings_status": "frozen-after-pilot",
+      "model_selection": {"rule": "latest Sonnet family member", "date": "2026-11-20",
+                          "source": "https://platform.claude.com/docs/en/models/overview"}
+    },
+    {
+      "id": "haiku", "label": "Anthropic Haiku", "provider": "anthropic", "harness": "claude_code",
+      "executable": "claude", "cli_version": "2.1.330 (Claude Code)",
+      "model": "claude-haiku-5-5", "effort": "medium", "thinking_tokens": null, "auth_mode": "oauth",
+      "settings_status": "frozen-after-pilot",
+      "model_selection": {"rule": "latest Haiku family member", "date": "2026-11-20",
+                          "source": "https://platform.claude.com/docs/en/models/overview"}
+    }
+  ],
+  "isolation": {
+    "mode": "macos-seatbelt",
+    "deny_read": [
+      "~/Projects",
+      "~/.codex/memories", "~/.codex/memories_1.sqlite", "~/.codex/skills", "~/.codex/plugins",
+      "~/.codex/sessions", "~/.codex/history.jsonl", "~/.codex/rules", "~/.codex/AGENTS.md",
+      "~/.claude/projects", "~/.claude/skills", "~/.claude/plugins", "~/.claude/history.jsonl",
+      "~/.claude/CLAUDE.md", "~/.claude/file-history", "~/.claude/sessions"
+    ],
+    "write_allow": ["~/.codex", "~/.claude", "~/.claude.json", "~/Library/Caches", "~/.cache",
+                    "~/.local/state", "~/.local/share/claude"]
+  },
+  "assets": {
+    "constraints": "constraints.txt",
+    "requirements": "requirements.json",
+    "acceptance": "evaluation/acceptance.py",
+    "fixtures": "evaluation/fixtures.py",
+    "baseline_surface": "evaluation/baseline_surface.json",
+    "protocol": "protocol.md",
+    "stakeholder_answers": "stakeholder-answers.md",
+    "review_rubric": "review-rubric.md",
+    "reference_patch": "reference/reference.patch",
+    "controls": "reference/negative-controls/controls.json"
+  },
+  "reference_experiment": {
+    "path": "~/Projects/agent-native/experiments/agent-concurrency-time",
+    "commit": "81b268c1fb59af29e5ea66e027c40ad953bef304",
+    "license": "no license file present in the reference repository; adapted by the same author"
+  }
+}

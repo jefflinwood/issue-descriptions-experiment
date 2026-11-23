@@ -1,0 +1,1245 @@
+{
+  "protocol_hash": "5e884cf1aeb7519f66cc12935a8c9d71cc044b695c9f71dd21343349c97fb260",
+  "corrections": {
+    "005-b1-luna-d4": {
+      "C3": {
+        "created": 0,
+        "passed": false
+      }
+    },
+    "008-b1-haiku-d1": {
+      "C3": {
+        "created": 1,
+        "customer_ok": true,
+        "quantities": {
+          "1": 2,
+          "2": 4
+        },
+        "allowed": {
+          "1": [
+            1,
+            2,
+            3
+          ],
+          "2": [
+            4
+          ]
+        },
+        "passed": true
+      }
+    },
+    "014-b1-sonnet-d2": {
+      "C3": {
+        "created": 0,
+        "passed": false
+      }
+    },
+    "015-b1-haiku-d3": {
+      "C1": {
+        "status": 200,
+        "prefilled": {},
+        "says_unavailable": true,
+        "names_product": false,
+        "created": 0,
+        "message": "North Buyer customer Sign out None of the products on this order are currently available. New order Wholesale accounts order by the case; retail cus",
+        "passed": true
+      },
+      "C3": {
+        "created": 0,
+        "passed": false
+      }
+    },
+    "017-b2-luna-d4": {
+      "C3": {
+        "created": 0,
+        "passed": false
+      }
+    },
+    "020-b2-haiku-d3": {
+      "C1": {
+        "status": 200,
+        "prefilled": {},
+        "says_unavailable": true,
+        "names_product": false,
+        "created": 0,
+        "message": "North Buyer customer Sign out None of the products on WS-N-002 are currently available, so nothing was prefilled. New order Wholesale accounts ord",
+        "passed": true
+      }
+    },
+    "022-b2-haiku-d1": {
+      "C3": {
+        "created": 1,
+        "customer_ok": true,
+        "quantities": {
+          "1": 2,
+          "2": 4
+        },
+        "allowed": {
+          "1": [
+            1,
+            2,
+            3
+          ],
+          "2": [
+            4
+          ]
+        },
+        "passed": true
+      }
+    },
+    "024-b2-luna-d1": {
+      "C3": {
+        "created": 1,
+        "customer_ok": true,
+        "quantities": {
+          "1": 1,
+          "2": 4
+        },
+        "allowed": {
+          "1": [
+            1,
+            2,
+            3
+          ],
+          "2": [
+            4
+          ]
+        },
+        "passed": true
+      }
+    },
+    "029-b2-luna-d2": {
+      "C2": {
+        "passed": true,
+        "evidence": "From an order page, customers and staff can reopen the new-order form with available products and quantities prefilled."
+      }
+    },
+    "030-b2-haiku-d2": {
+      "C1": {
+        "status": 200,
+        "prefilled": {},
+        "says_unavailable": true,
+        "names_product": false,
+        "created": 0,
+        "message": "North Buyer customer Sign out None of the products on this order are still available, so nothing was prefilled. New order Wholesale accounts ord",
+        "passed": true
+      }
+    },
+    "032-b3-haiku-d2": {
+      "C1": {
+        "status": 200,
+        "prefilled": {},
+        "says_unavailable": true,
+        "names_product": false,
+        "created": 0,
+        "message": "North Buyer customer Sign out None of the products on WS-N-002 are still available, so nothing has been filled in. New order Wholesale account",
+        "passed": true
+      }
+    },
+    "035-b3-luna-d1": {
+      "C2": {
+        "passed": true,
+        "evidence": "customers can start a new order from a past order, with its active products, quantities, and shipping method prefilled."
+      },
+      "C3": {
+        "created": 0,
+        "passed": false
+      }
+    },
+    "042-b3-haiku-d1": {
+      "C3": {
+        "created": 1,
+        "customer_ok": true,
+        "quantities": {
+          "1": 2,
+          "2": 4
+        },
+        "allowed": {
+          "1": [
+            1,
+            2,
+            3
+          ],
+          "2": [
+            4
+          ]
+        },
+        "passed": true
+      }
+    },
+    "050-b4-haiku-d3": {
+      "C1": {
+        "status": 200,
+        "prefilled": {},
+        "says_unavailable": true,
+        "names_product": false,
+        "created": 0,
+        "message": " order to get today's prices. None of the products on WS-N-002 are currently available, so nothing has been prefilled. Ordering as Hilltop Roaster",
+        "passed": true
+      }
+    },
+    "056-b4-haiku-d2": {
+      "C1": {
+        "status": 200,
+        "prefilled": {},
+        "says_unavailable": true,
+        "names_product": false,
+        "created": 0,
+        "message": "North Buyer customer Sign out None of the products on order WS-N-002 are still available, so nothing was prefilled. New order Wholesale accounts ord",
+        "passed": true
+      },
+      "C3": {
+        "created": 0,
+        "passed": false
+      }
+    },
+    "059-b4-haiku-d1": {
+      "C3": {
+        "created": 1,
+        "customer_ok": true,
+        "quantities": {
+          "1": 2,
+          "2": 4
+        },
+        "allowed": {
+          "1": [
+            1,
+            2,
+            3
+          ],
+          "2": [
+            4
+          ]
+        },
+        "passed": true
+      }
+    },
+    "064-b5-haiku-d1": {
+      "C3": {
+        "created": 0,
+        "passed": false
+      }
+    },
+    "066-b5-luna-d3": {
+      "C3": {
+        "created": 0,
+        "passed": false
+      }
+    },
+    "076-b5-sonnet-d3": {
+      "C3": {
+        "created": 0,
+        "passed": false
+      }
+    },
+    "077-b5-luna-d1": {
+      "C3": {
+        "created": 1,
+        "customer_ok": true,
+        "quantities": {
+          "1": 1,
+          "2": 4
+        },
+        "allowed": {
+          "1": [
+            1,
+            2,
+            3
+          ],
+          "2": [
+            4
+          ]
+        },
+        "passed": true
+      }
+    }
+  },
+  "cells": {
+    "haiku D2": {
+      "frozen_primary": 2,
+      "posthoc_primary": 4,
+      "frozen_minimal": 4,
+      "posthoc_minimal": 4,
+      "n": 5
+    },
+    "sonnet D4": {
+      "frozen_primary": 5,
+      "posthoc_primary": 5,
+      "frozen_minimal": 5,
+      "posthoc_minimal": 5,
+      "n": 5
+    },
+    "terra D1": {
+      "frozen_primary": 0,
+      "posthoc_primary": 0,
+      "frozen_minimal": 5,
+      "posthoc_minimal": 5,
+      "n": 5
+    },
+    "haiku D4": {
+      "frozen_primary": 5,
+      "posthoc_primary": 5,
+      "frozen_minimal": 5,
+      "posthoc_minimal": 5,
+      "n": 5
+    },
+    "luna D2": {
+      "frozen_primary": 3,
+      "posthoc_primary": 4,
+      "frozen_minimal": 5,
+      "posthoc_minimal": 5,
+      "n": 5
+    },
+    "luna D4": {
+      "frozen_primary": 3,
+      "posthoc_primary": 3,
+      "frozen_minimal": 3,
+      "posthoc_minimal": 3,
+      "n": 5
+    },
+    "sonnet D3": {
+      "frozen_primary": 4,
+      "posthoc_primary": 4,
+      "frozen_minimal": 4,
+      "posthoc_minimal": 4,
+      "n": 5
+    },
+    "terra D2": {
+      "frozen_primary": 5,
+      "posthoc_primary": 5,
+      "frozen_minimal": 5,
+      "posthoc_minimal": 5,
+      "n": 5
+    },
+    "haiku D1": {
+      "frozen_primary": 0,
+      "posthoc_primary": 0,
+      "frozen_minimal": 0,
+      "posthoc_minimal": 4,
+      "n": 5
+    },
+    "terra D3": {
+      "frozen_primary": 5,
+      "posthoc_primary": 5,
+      "frozen_minimal": 5,
+      "posthoc_minimal": 5,
+      "n": 5
+    },
+    "terra D4": {
+      "frozen_primary": 5,
+      "posthoc_primary": 5,
+      "frozen_minimal": 5,
+      "posthoc_minimal": 5,
+      "n": 5
+    },
+    "luna D1": {
+      "frozen_primary": 0,
+      "posthoc_primary": 0,
+      "frozen_minimal": 2,
+      "posthoc_minimal": 4,
+      "n": 5
+    },
+    "luna D3": {
+      "frozen_primary": 4,
+      "posthoc_primary": 4,
+      "frozen_minimal": 4,
+      "posthoc_minimal": 4,
+      "n": 5
+    },
+    "sonnet D1": {
+      "frozen_primary": 3,
+      "posthoc_primary": 3,
+      "frozen_minimal": 5,
+      "posthoc_minimal": 5,
+      "n": 5
+    },
+    "sonnet D2": {
+      "frozen_primary": 4,
+      "posthoc_primary": 4,
+      "frozen_minimal": 4,
+      "posthoc_minimal": 4,
+      "n": 5
+    },
+    "haiku D3": {
+      "frozen_primary": 2,
+      "posthoc_primary": 4,
+      "frozen_minimal": 4,
+      "posthoc_minimal": 4,
+      "n": 5
+    }
+  },
+  "attempts": [
+    {
+      "attempt": "000-b1-haiku-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "001-b1-sonnet-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "002-b1-terra-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "003-b1-haiku-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "004-b1-luna-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "005-b1-luna-d4",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": false,
+      "corrections": {
+        "C3": {
+          "created": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "attempt": "006-b1-sonnet-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "007-b1-terra-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "008-b1-haiku-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": true,
+      "corrections": {
+        "C3": {
+          "created": 1,
+          "customer_ok": true,
+          "quantities": {
+            "1": 2,
+            "2": 4
+          },
+          "allowed": {
+            "1": [
+              1,
+              2,
+              3
+            ],
+            "2": [
+              4
+            ]
+          },
+          "passed": true
+        }
+      }
+    },
+    {
+      "attempt": "009-b1-terra-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "010-b1-terra-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "011-b1-luna-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "012-b1-luna-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "013-b1-sonnet-d1",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "014-b1-sonnet-d2",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": false,
+      "corrections": {
+        "C3": {
+          "created": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "attempt": "015-b1-haiku-d3",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": false,
+      "corrections": {
+        "C1": {
+          "status": 200,
+          "prefilled": {},
+          "says_unavailable": true,
+          "names_product": false,
+          "created": 0,
+          "message": "North Buyer customer Sign out None of the products on this order are currently available. New order Wholesale accounts order by the case; retail cus",
+          "passed": true
+        },
+        "C3": {
+          "created": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "attempt": "016-b2-haiku-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "017-b2-luna-d4",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": false,
+      "corrections": {
+        "C3": {
+          "created": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "attempt": "018-b2-terra-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "019-b2-luna-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "020-b2-haiku-d3",
+      "frozen_primary": false,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {
+        "C1": {
+          "status": 200,
+          "prefilled": {},
+          "says_unavailable": true,
+          "names_product": false,
+          "created": 0,
+          "message": "North Buyer customer Sign out None of the products on WS-N-002 are currently available, so nothing was prefilled. New order Wholesale accounts ord",
+          "passed": true
+        }
+      }
+    },
+    {
+      "attempt": "021-b2-terra-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "022-b2-haiku-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": true,
+      "corrections": {
+        "C3": {
+          "created": 1,
+          "customer_ok": true,
+          "quantities": {
+            "1": 2,
+            "2": 4
+          },
+          "allowed": {
+            "1": [
+              1,
+              2,
+              3
+            ],
+            "2": [
+              4
+            ]
+          },
+          "passed": true
+        }
+      }
+    },
+    {
+      "attempt": "023-b2-terra-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "024-b2-luna-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": true,
+      "corrections": {
+        "C3": {
+          "created": 1,
+          "customer_ok": true,
+          "quantities": {
+            "1": 1,
+            "2": 4
+          },
+          "allowed": {
+            "1": [
+              1,
+              2,
+              3
+            ],
+            "2": [
+              4
+            ]
+          },
+          "passed": true
+        }
+      }
+    },
+    {
+      "attempt": "025-b2-sonnet-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "026-b2-sonnet-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "027-b2-sonnet-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "028-b2-terra-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "029-b2-luna-d2",
+      "frozen_primary": false,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {
+        "C2": {
+          "passed": true,
+          "evidence": "From an order page, customers and staff can reopen the new-order form with available products and quantities prefilled."
+        }
+      }
+    },
+    {
+      "attempt": "030-b2-haiku-d2",
+      "frozen_primary": false,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {
+        "C1": {
+          "status": 200,
+          "prefilled": {},
+          "says_unavailable": true,
+          "names_product": false,
+          "created": 0,
+          "message": "North Buyer customer Sign out None of the products on this order are still available, so nothing was prefilled. New order Wholesale accounts ord",
+          "passed": true
+        }
+      }
+    },
+    {
+      "attempt": "031-b2-sonnet-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "032-b3-haiku-d2",
+      "frozen_primary": false,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {
+        "C1": {
+          "status": 200,
+          "prefilled": {},
+          "says_unavailable": true,
+          "names_product": false,
+          "created": 0,
+          "message": "North Buyer customer Sign out None of the products on WS-N-002 are still available, so nothing has been filled in. New order Wholesale account",
+          "passed": true
+        }
+      }
+    },
+    {
+      "attempt": "033-b3-sonnet-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "034-b3-sonnet-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "035-b3-luna-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": false,
+      "corrections": {
+        "C2": {
+          "passed": true,
+          "evidence": "customers can start a new order from a past order, with its active products, quantities, and shipping method prefilled."
+        },
+        "C3": {
+          "created": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "attempt": "036-b3-luna-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "037-b3-terra-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "038-b3-terra-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "039-b3-terra-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "040-b3-sonnet-d1",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "041-b3-terra-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "042-b3-haiku-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": true,
+      "corrections": {
+        "C3": {
+          "created": 1,
+          "customer_ok": true,
+          "quantities": {
+            "1": 2,
+            "2": 4
+          },
+          "allowed": {
+            "1": [
+              1,
+              2,
+              3
+            ],
+            "2": [
+              4
+            ]
+          },
+          "passed": true
+        }
+      }
+    },
+    {
+      "attempt": "043-b3-haiku-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "044-b3-haiku-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "045-b3-luna-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "046-b3-luna-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "047-b3-sonnet-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "048-b4-luna-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "049-b4-terra-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "050-b4-haiku-d3",
+      "frozen_primary": false,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {
+        "C1": {
+          "status": 200,
+          "prefilled": {},
+          "says_unavailable": true,
+          "names_product": false,
+          "created": 0,
+          "message": " order to get today's prices. None of the products on WS-N-002 are currently available, so nothing has been prefilled. Ordering as Hilltop Roaster",
+          "passed": true
+        }
+      }
+    },
+    {
+      "attempt": "051-b4-sonnet-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "052-b4-luna-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "053-b4-terra-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "054-b4-terra-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "055-b4-haiku-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "056-b4-haiku-d2",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": false,
+      "corrections": {
+        "C1": {
+          "status": 200,
+          "prefilled": {},
+          "says_unavailable": true,
+          "names_product": false,
+          "created": 0,
+          "message": "North Buyer customer Sign out None of the products on order WS-N-002 are still available, so nothing was prefilled. New order Wholesale accounts ord",
+          "passed": true
+        },
+        "C3": {
+          "created": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "attempt": "057-b4-luna-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "058-b4-luna-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "059-b4-haiku-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": true,
+      "corrections": {
+        "C3": {
+          "created": 1,
+          "customer_ok": true,
+          "quantities": {
+            "1": 2,
+            "2": 4
+          },
+          "allowed": {
+            "1": [
+              1,
+              2,
+              3
+            ],
+            "2": [
+              4
+            ]
+          },
+          "passed": true
+        }
+      }
+    },
+    {
+      "attempt": "060-b4-sonnet-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "061-b4-sonnet-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "062-b4-terra-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "063-b4-sonnet-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "064-b5-haiku-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": false,
+      "corrections": {
+        "C3": {
+          "created": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "attempt": "065-b5-terra-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "066-b5-luna-d3",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": false,
+      "corrections": {
+        "C3": {
+          "created": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "attempt": "067-b5-haiku-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "068-b5-luna-d2",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "069-b5-haiku-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "070-b5-luna-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "071-b5-sonnet-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "072-b5-terra-d3",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "073-b5-sonnet-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "074-b5-terra-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "075-b5-haiku-d4",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "076-b5-sonnet-d3",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": false,
+      "corrections": {
+        "C3": {
+          "created": 0,
+          "passed": false
+        }
+      }
+    },
+    {
+      "attempt": "077-b5-luna-d1",
+      "frozen_primary": false,
+      "posthoc_primary": false,
+      "frozen_minimal": false,
+      "posthoc_minimal": true,
+      "corrections": {
+        "C3": {
+          "created": 1,
+          "customer_ok": true,
+          "quantities": {
+            "1": 1,
+            "2": 4
+          },
+          "allowed": {
+            "1": [
+              1,
+              2,
+              3
+            ],
+            "2": [
+              4
+            ]
+          },
+          "passed": true
+        }
+      }
+    },
+    {
+      "attempt": "078-b5-sonnet-d1",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    },
+    {
+      "attempt": "079-b5-terra-d2",
+      "frozen_primary": true,
+      "posthoc_primary": true,
+      "frozen_minimal": true,
+      "posthoc_minimal": true,
+      "corrections": {}
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{"type":"thread.started","thread_id":"thread-synthetic-1"}
+{"type":"turn.started"}
+{"type":"item.started","item":{"id":"item_0","type":"command_execution","command":"python -m pytest -q","status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_0","type":"command_execution","command":"python -m pytest -q","aggregated_output":"22 passed","exit_code":0,"status":"completed"}}
+{"type":"item.started","item":{"id":"item_1","type":"file_change","changes":[{"path":"app/orders.py","kind":"update"}],"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_1","type":"file_change","changes":[{"path":"app/orders.py","kind":"update"}],"status":"completed"}}
+not json: a stray log line the parser must skip
+{"type":"item.completed","item":{"id":"item_2","type":"agent_message","text":"Added q search. Assumed case-insensitive matching."}}
+{"type":"turn.completed","usage":{"input_tokens":145942,"cached_input_tokens":129664,"cache_write_input_tokens":0,"output_tokens":1975,"reasoning_output_tokens":70}}

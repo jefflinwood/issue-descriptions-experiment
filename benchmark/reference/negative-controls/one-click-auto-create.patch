@@ -1,0 +1,267 @@
+diff --git a/README.md b/README.md
+index a2cc774..6567ee7 100644
+--- a/README.md
++++ b/README.md
+@@ -59,6 +59,20 @@ and merge-queue check. To enforce it as a merge gate, open the repository's
+ **Require status checks to pass**, and select the `Tests` check from the
+ `CI` workflow after its first run.
+ 
++## Reordering a past order
++
++Each order page has a **Reorder** button. It opens the new-order form
++(`/orders/new?reorder=<order id>`) filled in from that order; nothing is placed until
++you submit the form.
++
++- Quantities are copied for products that are still active. Products that are no
++  longer available are left out, and the form lists them.
++- Prices are always today's prices, not the prices on the original order.
++- Delivery due date and requested ship date are left blank; the shipping method is
++  copied from the original order.
++- Customers can reorder only their own orders. Staff can reorder any order, and the
++  account is preselected.
++
+ ## Using this for the Claude training exercises
+ 
+ Three integration points, each independent of the others:
+diff --git a/app/orders.py b/app/orders.py
+index 7287186..bc796b5 100644
+--- a/app/orders.py
++++ b/app/orders.py
+@@ -92,6 +92,54 @@ def update_due_date(order_id):
+     return redirect(url_for("orders.detail", order_id=order.id))
+ 
+ 
++def _reorder_prefill(order_id):
++    """Form defaults for reordering ``order_id``, or None. Never creates an order.
++
++    Quantities come from the original order's active products (repeated lines are
++    summed); inactive products are reported instead. Prices are not carried over:
++    the normal submission prices every line at the current product price. Dates
++    and notes are left for the person placing the order.
++    """
++    if not order_id:
++        return None
++    source = Order.query.get_or_404(order_id)
++    if not current_user.is_staff and source.customer_id != current_user.customer_id:
++        abort(403)
++    quantities, skipped = {}, []
++    for item in source.items:
++        if item.product.active:
++            quantities[item.product_id] = quantities.get(item.product_id, 0) + item.quantity
++        elif item.product.name not in skipped:
++            skipped.append(item.product.name)
++    method = source.shipments[0].method if source.shipments else None
++    return dict(order=source, quantities=quantities, skipped=skipped, customer_id=source.customer_id,
++                shipping_method=method)
++
++
++@bp.route("/<int:order_id>/reorder", methods=["POST"])
++@login_required
++def reorder(order_id):
++    # FAULT: places the order immediately, copying the original due date.
++    source = Order.query.get_or_404(order_id)
++    if not current_user.is_staff and source.customer_id != current_user.customer_id:
++        abort(403)
++    customer = source.customer
++    items = [OrderItem(product=i.product, quantity=i.quantity,
++                       unit_price=i.product.wholesale_price_per_case if customer.type == "wholesale" else i.product.retail_price_per_bag)
++             for i in source.items if i.product.active]
++    if not items:
++        flash("None of these products are available.", "error")
++        return redirect(url_for("orders.detail", order_id=source.id))
++    count_today = Order.query.filter(db.func.date(Order.order_date) == date.today()).count()
++    number = f"{'WS' if customer.type == 'wholesale' else 'RT'}-{date.today().strftime('%Y%m%d')}-{count_today + 1:03d}"
++    order = Order(order_number=number, customer=customer, order_type=customer.type, status="pending",
++                  order_date=datetime.utcnow(), delivery_deadline=OrderDueDate(due_date=source.due_date or date.today()),
++                  items=items, shipments=[Shipment(method=source.shipments[0].method if source.shipments else "ups", status="planned")])
++    db.session.add(order)
++    db.session.commit()
++    return redirect(url_for("orders.detail", order_id=order.id))
++
++
+ @bp.route("/new", methods=["GET", "POST"])
+ @login_required
+ def new():
+@@ -113,11 +161,13 @@ def new():
+         .order_by(TruckingService.capacity_cases).all()
+     )
+ 
++    reorder = _reorder_prefill(request.args.get("reorder", type=int)) if request.method == "GET" else None
++
+     def render_new_order():
+         return render_template(
+             "orders/new.html", customers=customers, products=products,
+             warehouses=warehouses, trucking_services=trucking_services,
+-            shipping_methods=SHIPPING_METHOD_LABELS,
++            shipping_methods=SHIPPING_METHOD_LABELS, reorder=reorder,
+         )
+ 
+     if request.method == "POST":
+diff --git a/app/templates/orders/detail.html b/app/templates/orders/detail.html
+index 2ecc6f8..8ab3fe2 100644
+--- a/app/templates/orders/detail.html
++++ b/app/templates/orders/detail.html
+@@ -5,6 +5,7 @@
+   <p class="eyebrow-plain"><a href="{{ url_for('orders.index') }}">Orders</a></p>
+   <h1>{{ order.order_number }}</h1>
+   <p class="page-sub">{{ order.customer.name }} · {{ order.order_type }} · placed {{ order.order_date.strftime('%b %-d, %Y') }}</p>
++  <form method="post" action="{{ url_for('orders.reorder', order_id=order.id) }}"><button type="submit" class="btn btn-secondary">Reorder</button></form>
+ </header>
+ 
+ <div class="split">
+diff --git a/app/templates/orders/new.html b/app/templates/orders/new.html
+index 08418f8..7efa65a 100644
+--- a/app/templates/orders/new.html
++++ b/app/templates/orders/new.html
+@@ -7,12 +7,21 @@
+ </header>
+ 
+ <section class="panel panel-narrow">
++  {% if reorder %}
++  <p class="reorder-note">Reordering <a href="{{ url_for('orders.detail', order_id=reorder.order.id) }}">{{ reorder.order.order_number }}</a>. Check quantities, then choose shipping and delivery dates.</p>
++  {% if reorder.skipped %}
++  <p class="flash flash-error reorder-skipped">Not included because they are no longer available: {{ reorder.skipped|join(', ') }}.</p>
++  {% endif %}
++  {% if not reorder.quantities %}
++  <p class="flash flash-error">None of the products from {{ reorder.order.order_number }} are available to reorder.</p>
++  {% endif %}
++  {% endif %}
+   <form method="post" class="form-grid" id="order-form" data-customer-type="{{ customers[0].type if not current_user.is_staff else '' }}">
+     {% if current_user.is_staff %}
+     <label for="customer_id">Account</label>
+     <select id="customer_id" name="customer_id" required>
+       {% for c in customers %}
+-      <option value="{{ c.id }}" data-customer-type="{{ c.type }}">{{ c.name }} ({{ c.type }})</option>
++      <option value="{{ c.id }}" data-customer-type="{{ c.type }}" {{ 'selected' if reorder and reorder.customer_id == c.id }}>{{ c.name }} ({{ c.type }})</option>
+       {% endfor %}
+     </select>
+     {% else %}
+@@ -26,7 +35,7 @@
+       <div class="line-item">
+         <input type="hidden" name="product_id" value="{{ p.id }}">
+         <span class="line-item-name">{{ p.name }} <small>{{ p.origin }} · {{ p.roast_level }}</small></span>
+-        <input type="number" name="quantity" min="0" value="0" class="qty-input">
++        <input type="number" name="quantity" min="0" value="{{ reorder.quantities.get(p.id, 0) if reorder else 0 }}" class="qty-input" aria-label="Quantity of {{ p.name }}">
+       </div>
+       {% endfor %}
+     </fieldset>
+@@ -37,7 +46,7 @@
+       <label for="shipping_method">Method</label>
+       <select id="shipping_method" name="shipping_method" required>
+         {% for value, label in shipping_methods.items() %}
+-        <option value="{{ value }}">{{ label }}</option>
++        <option value="{{ value }}" {{ 'selected' if reorder and reorder.shipping_method == value }}>{{ label }}</option>
+         {% endfor %}
+       </select>
+ 
+diff --git a/tests/test_reorder.py b/tests/test_reorder.py
+new file mode 100644
+index 0000000..714e36d
+--- /dev/null
++++ b/tests/test_reorder.py
+@@ -0,0 +1,105 @@
++from datetime import date, timedelta
++from decimal import Decimal
++import re
++
++from app import db
++from app.models import Order, OrderItem, Product
++
++
++def prefilled(response):
++    """Product id → quantity as submitted by the rendered new-order form."""
++    html = response.data.decode()
++    ids = re.findall(r'name="product_id" value="(\d+)"', html)
++    quantities = re.findall(r'name="quantity" min="0" value="(\d+)"', html)
++    return {int(i): int(q) for i, q in zip(ids, quantities)}
++
++
++def test_reorder_prefills_without_creating_an_order(app, client, login):
++    login("customer@example.test")
++    order_id = app.config["TEST_IDS"]["own_order"]
++    with app.app_context():
++        before = Order.query.count()
++
++    response = client.get(f"/orders/new?reorder={order_id}")
++
++    assert response.status_code == 200
++    assert prefilled(response) == {app.config["TEST_IDS"]["product"]: 2}
++    with app.app_context():
++        assert Order.query.count() == before
++
++
++def test_order_page_links_to_reorder(app, client, login):
++    login("customer@example.test")
++    order_id = app.config["TEST_IDS"]["own_order"]
++
++    response = client.get(f"/orders/{order_id}")
++
++    assert f"/orders/new?reorder={order_id}" in response.data.decode()
++
++
++def test_customer_cannot_reorder_another_customers_order(app, client, login):
++    login("customer@example.test")
++
++    response = client.get(f"/orders/new?reorder={app.config['TEST_IDS']['other_order']}")
++
++    assert response.status_code == 403
++
++
++def test_staff_reorder_preselects_account(app, client, login):
++    login("staff@example.test")
++
++    response = client.get(f"/orders/new?reorder={app.config['TEST_IDS']['other_order']}")
++
++    assert re.search(r'<option value="\d+" data-customer-type="wholesale" selected>Southside Cafe',
++                     response.data.decode())
++
++
++def test_inactive_products_are_skipped_and_named(app, client, login):
++    with app.app_context():
++        retired = Product(sku="OLD-1", name="Retired Blend", origin="Kenya", roast_level="light",
++                          wholesale_price_per_case=Decimal("90.00"), retail_price_per_bag=Decimal("12.00"),
++                          active=False)
++        order = db.session.get(Order, app.config["TEST_IDS"]["own_order"])
++        order.items.append(OrderItem(product=retired, quantity=1, unit_price=Decimal("90.00")))
++        db.session.commit()
++    login("customer@example.test")
++
++    response = client.get(f"/orders/new?reorder={app.config['TEST_IDS']['own_order']}")
++
++    assert "Retired Blend" in response.data.decode()
++    assert "no longer available" in response.data.decode()
++    assert prefilled(response) == {app.config["TEST_IDS"]["product"]: 2}
++
++
++def test_submitted_reorder_uses_current_prices(app, client, login):
++    with app.app_context():
++        db.session.get(Product, app.config["TEST_IDS"]["product"]).wholesale_price_per_case = Decimal("120.00")
++        db.session.commit()
++    login("customer@example.test")
++    form = prefilled(client.get(f"/orders/new?reorder={app.config['TEST_IDS']['own_order']}"))
++
++    response = client.post("/orders/new", data={
++        "customer_id": _northside_id(app), "product_id": list(form), "quantity": list(form.values()),
++        "shipping_method": "ups", "due_date": (date.today() + timedelta(days=7)).isoformat()})
++
++    assert response.status_code == 302
++    with app.app_context():
++        newest = Order.query.order_by(Order.id.desc()).first()
++        assert newest.id != app.config["TEST_IDS"]["own_order"]
++        assert [(i.quantity, i.unit_price) for i in newest.items] == [(2, Decimal("120.00"))]
++        original = db.session.get(Order, app.config["TEST_IDS"]["own_order"])
++        assert [i.unit_price for i in original.items] == [Decimal("100.00")]
++
++
++def test_reorder_leaves_dates_blank(app, client, login):
++    login("staff@example.test")
++
++    html = client.get(f"/orders/new?reorder={app.config['TEST_IDS']['other_order']}").data.decode()
++
++    assert re.search(r'id="due_date" name="due_date" type="date" required>', html)
++    assert re.search(r'id="requested_ship_date" name="requested_ship_date" type="date">', html)
++
++
++def _northside_id(app):
++    with app.app_context():
++        return db.session.get(Order, app.config["TEST_IDS"]["own_order"]).customer_id

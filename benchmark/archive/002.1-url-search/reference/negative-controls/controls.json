@@ -1,0 +1,17 @@
+{
+  "description": "Evaluator controls applied to the pinned baseline. Each must fail exactly the listed criteria (other criteria must pass). 'intended' names the fault the control exists to detect.",
+  "controls": {
+    "noop": {"intended": ["AC01"], "patch": "noop.patch",
+             "fails": ["AC01", "AC03", "AC04", "AC05", "AC06", "AC07", "AC08", "AC09", "MIN-SEARCH"]},
+    "no-auth-scope": {"intended": ["AC05", "MIN-AUTH"], "patch": "no-auth-scope.patch",
+                      "fails": ["AC05", "AC06", "AC08", "MIN-AUTH"]},
+    "and-instead-of-or": {"intended": ["AC04"], "patch": "and-instead-of-or.patch",
+                          "fails": ["AC01", "AC03", "AC04", "AC06", "AC07", "AC08", "MIN-SEARCH"]},
+    "or-with-filters": {"intended": ["AC07"], "patch": "or-with-filters.patch",
+                        "fails": ["AC07", "AC08"]},
+    "unescaped-wildcards": {"intended": ["AC06"], "patch": "unescaped-wildcards.patch",
+                            "fails": ["AC06"]},
+    "form-cannot-submit": {"intended": ["AC08"], "patch": "form-cannot-submit.patch",
+                           "fails": ["AC08", "AC09"]}
+  }
+}

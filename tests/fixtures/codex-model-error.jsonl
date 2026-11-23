@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"thread-synthetic-3"}
+{"type":"turn.started"}
+{"type":"error","message":"The model `gpt-6.1-terra` does not exist or you do not have access to it."}
+{"type":"turn.failed","error":{"message":"The model `gpt-6.1-terra` does not exist or you do not have access to it."}}

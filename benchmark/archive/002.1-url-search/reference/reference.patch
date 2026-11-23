@@ -1,0 +1,252 @@
+diff --git a/README.md b/README.md
+index a2cc774..cbfc819 100644
+--- a/README.md
++++ b/README.md
+@@ -59,6 +59,23 @@ and merge-queue check. To enforce it as a merge gate, open the repository's
+ **Require status checks to pass**, and select the `Tests` check from the
+ `CI` workflow after its first run.
+ 
++## Searching orders
++
++The Orders page (`/orders/`) has a server-side search that is carried in the
++URL, so a search result can be bookmarked or shared. The search term is the
++`q` query parameter:
++
++- `/orders/?q=WS-2026` — orders whose order number contains `WS-2026`.
++- `/orders/?q=northside` — for staff, orders whose order number **or** account
++  name contains "northside".
++- `/orders/?status=pending&q=northside` — staff status and type filters combine
++  with the search; an order must match both.
++
++Matching ignores case and leading/trailing spaces, and the term is literal text
++(`%` and `_` are not wildcards). Customers only ever search their own orders, by
++order number. An empty `q` shows the usual list. The filter box above the table
++only narrows the rows already on the page and is not part of the URL.
++
+ ## Using this for the Claude training exercises
+ 
+ Three integration points, each independent of the others:
+diff --git a/app/orders.py b/app/orders.py
+index 7287186..700d1b9 100644
+--- a/app/orders.py
++++ b/app/orders.py
+@@ -13,8 +13,21 @@ from app.models import (
+ bp = Blueprint("orders", __name__, url_prefix="/orders")
+ 
+ 
++def _search_term():
++    """The trimmed ``q`` search term from the URL, or an empty string."""
++    return (request.args.get("q") or "").strip()
++
++
++def _contains_pattern(term):
++    """A LIKE pattern that matches ``term`` literally anywhere in a value."""
++    escaped = term.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
++    return f"%{escaped}%"
++
++
+ def _visible_orders_query():
+     query = Order.query
++    term = _search_term()
++    pattern = _contains_pattern(term) if term else None
+     if current_user.is_staff:
+         status = request.args.get("status")
+         order_type = request.args.get("type")
+@@ -22,10 +35,17 @@ def _visible_orders_query():
+             query = query.filter_by(status=status)
+         if order_type:
+             query = query.filter_by(order_type=order_type)
++        if pattern:
++            query = query.join(Order.customer).filter(db.or_(
++                Order.order_number.ilike(pattern, escape="\\"),
++                Customer.name.ilike(pattern, escape="\\"),
++            ))
+     else:
+         if not current_user.customer:
+             abort(403)
+         query = query.filter_by(customer_id=current_user.customer_id)
++        if pattern:
++            query = query.filter(Order.order_number.ilike(pattern, escape="\\"))
+     return query.order_by(Order.order_date.desc())
+ 
+ 
+@@ -36,6 +56,7 @@ def index():
+     return render_template(
+         "orders/index.html", orders=orders, statuses=ORDER_STATUSES,
+         active_status=request.args.get("status"), active_type=request.args.get("type"),
++        query=_search_term(),
+     )
+ 
+ 
+diff --git a/app/static/css/style.css b/app/static/css/style.css
+index a9e9366..8fb988c 100644
+--- a/app/static/css/style.css
++++ b/app/static/css/style.css
+@@ -509,3 +509,6 @@ input:focus, select:focus, textarea:focus {
+ .flash-success { background: #DDEBD9; color: #4A7A3D; }
+ .flash-error { background: var(--rust-soft); color: var(--rust); }
+ .flash-info { background: #DEE7EE; color: #3E6482; }
++
++.search-form { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
++.search-form input[type="search"] { min-width: 16rem; }
+diff --git a/app/templates/orders/index.html b/app/templates/orders/index.html
+index ebb1d99..f464486 100644
+--- a/app/templates/orders/index.html
++++ b/app/templates/orders/index.html
+@@ -11,16 +11,34 @@
+   </p>
+ </header>
+ 
++<form class="search-form" method="get" action="{{ url_for('orders.index') }}" role="search">
++  <label for="order-search">Search orders</label>
++  <input type="search" id="order-search" name="q" value="{{ query }}"
++         placeholder="{{ 'Order number or account name' if current_user.is_staff else 'Order number' }}">
++  {% if current_user.is_staff %}
++    {% if active_status %}<input type="hidden" name="status" value="{{ active_status }}">{% endif %}
++    {% if active_type %}<input type="hidden" name="type" value="{{ active_type }}">{% endif %}
++  {% endif %}
++  <button type="submit" class="btn">Search</button>
++  {% if query %}
++  <a class="search-clear" href="{{ url_for('orders.index', status=active_status if current_user.is_staff else None, type=active_type if current_user.is_staff else None) }}">Clear search</a>
++  {% endif %}
++</form>
++
+ {% if current_user.is_staff %}
+ <div class="filter-row">
+-  <a href="{{ url_for('orders.index') }}" class="chip {{ 'is-active' if not active_status and not active_type }}">All</a>
+-  <a href="{{ url_for('orders.index', type='wholesale') }}" class="chip {{ 'is-active' if active_type == 'wholesale' }}">Wholesale</a>
+-  <a href="{{ url_for('orders.index', type='retail') }}" class="chip {{ 'is-active' if active_type == 'retail' }}">Retail</a>
+-  <a href="{{ url_for('orders.index', status='pending') }}" class="chip {{ 'is-active' if active_status == 'pending' }}">Pending</a>
+-  <a href="{{ url_for('orders.index', status='shipped') }}" class="chip {{ 'is-active' if active_status == 'shipped' }}">Shipped</a>
++  <a href="{{ url_for('orders.index', q=query or None) }}" class="chip {{ 'is-active' if not active_status and not active_type }}">All</a>
++  <a href="{{ url_for('orders.index', type='wholesale', q=query or None) }}" class="chip {{ 'is-active' if active_type == 'wholesale' }}">Wholesale</a>
++  <a href="{{ url_for('orders.index', type='retail', q=query or None) }}" class="chip {{ 'is-active' if active_type == 'retail' }}">Retail</a>
++  <a href="{{ url_for('orders.index', status='pending', q=query or None) }}" class="chip {{ 'is-active' if active_status == 'pending' }}">Pending</a>
++  <a href="{{ url_for('orders.index', status='shipped', q=query or None) }}" class="chip {{ 'is-active' if active_status == 'shipped' }}">Shipped</a>
+ </div>
+ {% endif %}
+ 
++{% if query and not orders %}
++<p class="empty">No orders match “{{ query }}”.</p>
++{% endif %}
++
+ <section class="panel orders-panel">
+   <div class="table-scroll">
+   <table id="orders-table" class="table orders-table">
+@@ -65,7 +83,7 @@
+     language: {
+       emptyTable: 'No orders yet.',
+       search: '',
+-      searchPlaceholder: 'Search orders…'
++      searchPlaceholder: 'Filter rows on this page…'
+     }
+   });
+ </script>
+diff --git a/tests/test_order_search.py b/tests/test_order_search.py
+new file mode 100644
+index 0000000..555a0f8
+--- /dev/null
++++ b/tests/test_order_search.py
+@@ -0,0 +1,102 @@
++from datetime import datetime
++import re
++
++from app import db
++from app.models import Customer, Order
++
++
++def _add_order(number, customer_name, status="pending", day=3):
++    customer = Customer.query.filter_by(name=customer_name).first()
++    if customer is None:
++        customer = Customer(name=customer_name, type="retail")
++        db.session.add(customer)
++    order = Order(order_number=number, customer=customer, order_type=customer.type,
++                  status=status, order_date=datetime(2026, 9, day, 9, 0))
++    db.session.add(order)
++    db.session.commit()
++
++
++def listed(response):
++    """Order numbers linked from the orders table, ignoring echoed search text."""
++    return set(re.findall(r'href="/orders/\d+">([^<]+)</a>', response.data.decode()))
++
++
++def test_staff_search_matches_order_number_case_insensitively(client, login):
++    login("staff@example.test")
++
++    response = client.get("/orders/?q=  ws-test-001 ")
++
++    assert "WS-TEST-001" in listed(response)
++    assert "WS-TEST-002" not in listed(response)
++
++
++def test_staff_search_matches_account_name(client, login):
++    login("staff@example.test")
++
++    response = client.get("/orders/?q=southside")
++
++    assert "WS-TEST-002" in listed(response)
++    assert "WS-TEST-001" not in listed(response)
++
++
++def test_empty_search_shows_all_orders(client, login):
++    login("staff@example.test")
++
++    response = client.get("/orders/?q=%20%20")
++
++    assert "WS-TEST-001" in listed(response)
++    assert "WS-TEST-002" in listed(response)
++
++
++def test_search_combines_with_status_filter(app, client, login):
++    login("staff@example.test")
++
++    response = client.get("/orders/?status=confirmed&q=cafe")
++
++    assert "WS-TEST-002" in listed(response)
++    assert "WS-TEST-001" not in listed(response)
++
++
++def test_search_treats_wildcards_literally(app, client, login):
++    with app.app_context():
++        _add_order("RT-50%-OFF", "Percent Shopper")
++    login("staff@example.test")
++
++    percent = client.get("/orders/?q=%25")
++    underscore = client.get("/orders/?q=_")
++
++    assert "RT-50%-OFF" in listed(percent)
++    assert "WS-TEST-001" not in listed(percent)
++    assert "WS-TEST-001" not in listed(underscore)
++
++
++def test_customer_search_stays_within_own_orders(client, login):
++    login("customer@example.test")
++
++    other = client.get("/orders/?q=WS-TEST-002")
++    by_name = client.get("/orders/?q=southside")
++    own = client.get("/orders/?q=001")
++
++    assert "WS-TEST-002" not in listed(other)
++    assert "WS-TEST-002" not in listed(by_name)
++    assert "WS-TEST-001" in listed(own)
++
++
++def test_search_form_and_filter_links_keep_state(client, login):
++    login("staff@example.test")
++
++    response = client.get("/orders/?status=pending&q=north%22")
++    page = response.data.decode()
++
++    assert 'name="q"' in page
++    assert 'value="north&#34;"' in page
++    assert 'name="status" value="pending"' in page
++    assert "type=retail&amp;q=north%22" in page or "q=north%22&amp;type=retail" in page
++
++
++def test_search_without_matches_shows_empty_state(client, login):
++    login("staff@example.test")
++
++    response = client.get("/orders/?q=no-such-order")
++
++    assert b"No orders match" in response.data

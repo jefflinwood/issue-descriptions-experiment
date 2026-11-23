@@ -1,0 +1,2 @@
+{"type":"system","subtype":"init","session_id":"sess-synthetic-3","model":"claude-haiku-5-5"}
+{"type":"result","subtype":"error_during_execution","is_error":true,"result":"API Error: 404 model not available: claude-haiku-5-5 is not supported for this account","session_id":"sess-synthetic-3","usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"output_tokens":0}}

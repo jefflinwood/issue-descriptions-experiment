@@ -1,0 +1,26 @@
+name: Harness checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  harness:
+    # No paid models and no credentials: every agent here is the deterministic fake.
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Clone pinned Ridgeline baseline
+        run: |
+          git clone https://github.com/jefflinwood/ridgeline.git /tmp/ridgeline
+          git -C /tmp/ridgeline cat-file -e "$(python -c 'import json; print(json.load(open("benchmark/config.json"))["source"]["revision"])')^{commit}"
+      - name: Install Ridgeline dependencies with the frozen constraints
+        run: python -m pip install -r /tmp/ridgeline/requirements-dev.txt -c benchmark/constraints.txt
+      - name: Plan (no network, no agents)
+        run: python -m issue_specification.cli plan > /tmp/plan.json
+      - name: Unit, integration and evaluator-control tests
+        env:
+          ISSUE_SPEC_RIDGELINE: /tmp/ridgeline
+        run: python -m unittest discover -s tests -t . -v

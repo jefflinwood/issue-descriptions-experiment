@@ -1,0 +1,173 @@
+{
+ "routes": [
+  "/ GET",
+  "/admin/users GET",
+  "/admin/users/new GET,POST",
+  "/api/accounts GET",
+  "/api/accounts/<int:customer_id> GET",
+  "/api/inventory GET",
+  "/api/inventory/low GET",
+  "/api/orders GET",
+  "/api/orders/<int:order_id> GET",
+  "/api/orders/<int:order_id>/due-date POST",
+  "/api/orders/<int:order_id>/status POST",
+  "/api/products GET",
+  "/api/roast-batches GET",
+  "/api/shipments GET",
+  "/api/shipping/services GET",
+  "/api/subscriptions GET",
+  "/api/subscriptions/<int:sub_id>/<action> POST",
+  "/customers/ GET",
+  "/customers/<int:customer_id> GET",
+  "/export/ridgeline.xlsx GET",
+  "/inventory GET",
+  "/login GET,POST",
+  "/logout GET",
+  "/oauth/authorize GET,POST",
+  "/orders/ GET",
+  "/orders/<int:order_id> GET",
+  "/orders/<int:order_id>/due-date POST",
+  "/orders/<int:order_id>/status POST",
+  "/orders/new GET,POST",
+  "/products GET",
+  "/roasting/ GET",
+  "/roasting/log POST",
+  "/shipping/ GET",
+  "/static/<path:filename> GET",
+  "/subscriptions/ GET",
+  "/subscriptions/<int:sub_id>/<action> POST",
+  "/subscriptions/new GET,POST"
+ ],
+ "schema": {
+  "customers": [
+   "address",
+   "city",
+   "country",
+   "created_at",
+   "currency",
+   "email",
+   "id",
+   "name",
+   "notes",
+   "phone",
+   "state",
+   "type"
+  ],
+  "green_coffee_lots": [
+   "arrival_date",
+   "cost_per_kg_usd",
+   "farm_or_coop",
+   "id",
+   "lot_code",
+   "origin",
+   "process",
+   "supplier_currency",
+   "weight_kg_received",
+   "weight_kg_remaining"
+  ],
+  "products": [
+   "active",
+   "bag_weight_g",
+   "bags_in_stock",
+   "cases_in_stock",
+   "id",
+   "name",
+   "origin",
+   "process",
+   "retail_price_per_bag",
+   "roast_level",
+   "sku",
+   "wholesale_price_per_case"
+  ],
+  "trucking_services": [
+   "active",
+   "appointment_delivery",
+   "capacity_cases",
+   "id",
+   "liftgate",
+   "name",
+   "service_area"
+  ],
+  "orders": [
+   "customer_id",
+   "id",
+   "notes",
+   "order_date",
+   "order_number",
+   "order_type",
+   "requested_ship_date",
+   "status"
+  ],
+  "roast_batches": [
+   "batch_number",
+   "green_weight_kg",
+   "id",
+   "lot_id",
+   "notes",
+   "product_id",
+   "roast_date",
+   "roast_level",
+   "roasted_by",
+   "roasted_weight_kg"
+  ],
+  "subscriptions": [
+   "created_at",
+   "customer_id",
+   "frequency",
+   "id",
+   "next_ship_date",
+   "product_id",
+   "quantity",
+   "status"
+  ],
+  "users": [
+   "created_at",
+   "customer_id",
+   "email",
+   "id",
+   "name",
+   "password_hash",
+   "role"
+  ],
+  "warehouses": [
+   "address",
+   "city",
+   "country",
+   "customer_id",
+   "dock_notes",
+   "id",
+   "name",
+   "service_area",
+   "state"
+  ],
+  "order_due_dates": [
+   "due_date",
+   "id",
+   "order_id"
+  ],
+  "order_items": [
+   "id",
+   "order_id",
+   "product_id",
+   "quantity",
+   "unit_price"
+  ],
+  "shipments": [
+   "cases",
+   "id",
+   "load_number",
+   "method",
+   "order_id",
+   "scheduled_ship_date",
+   "status",
+   "tracking_number",
+   "trucking_service_id",
+   "warehouse_id"
+  ]
+ },
+ "source_revision": "353c3ccdf3acdaae9acae78b5132241061b5decc",
+ "requirements_sha256": {
+  "requirements.txt": "f611425549fd0da92586428126478bf2a605c482ee3c7ee0c43e08cdd6b0b4ff",
+  "requirements-dev.txt": "40640d7f22bdded667e36c33cf8b260e5b4168a1ea19fec7cbf92ff796de96a2"
+ }
+}

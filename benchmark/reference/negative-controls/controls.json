@@ -1,0 +1,17 @@
+{
+  "description": "Reorder workload evaluator controls applied to the pinned baseline. Each must fail exactly the listed acceptance criteria (the composite AC10 is excluded from the comparison); the original regression suite must still pass. 'intended' names the fault the control exists to detect.",
+  "controls": {
+    "noop": {"intended": ["AC01"], "patch": "noop.patch",
+             "fails": ["AC01", "AC02", "AC03", "AC04", "AC05", "AC06", "AC07", "MIN-REORDER"]},
+    "no-ownership-check": {"intended": ["AC03", "MIN-AUTH"], "patch": "no-ownership-check.patch",
+                           "fails": ["AC03", "MIN-AUTH"]},
+    "includes-inactive": {"intended": ["AC04"], "patch": "includes-inactive.patch",
+                          "fails": ["AC02", "AC04", "AC05"]},
+    "copies-dates": {"intended": ["AC06"], "patch": "copies-dates.patch", "fails": ["AC06"]},
+    "historical-prices": {"intended": ["AC05"], "patch": "historical-prices.patch", "fails": ["AC05"]},
+    "repeated-lines-overwritten": {"intended": ["AC02"], "patch": "repeated-lines-overwritten.patch",
+                                   "fails": ["AC02", "MIN-REORDER"]},
+    "one-click-auto-create": {"intended": ["AC02"], "patch": "one-click-auto-create.patch",
+                              "fails": ["AC02", "AC03", "AC04", "AC05", "AC06", "AC07"]}
+  }
+}

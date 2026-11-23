@@ -1,0 +1,22 @@
+You are working on one issue in the Ridgeline Coffee repository, which is your current working directory.
+
+Work autonomously in this single session. Nobody will answer questions after you start. If the issue leaves something unspecified, choose reasonable behavior, record the assumption in your final message, and continue.
+
+Requirements for every issue in this repository:
+- Preserve the application's existing access rules and authorization behavior.
+- Write or update focused automated tests for the behavior you change.
+- Document the new behavior for users of the application in README.md.
+- Keep the existing tests passing. Do not delete, skip, or weaken existing tests.
+
+Repository guidelines are in AGENTS.md. One correction: AGENTS.md says this checkout has no automated test suite. That statement is outdated. The repository has a pytest suite under tests/; run it with `python -m pytest -q`. Python and the project's dependencies are already installed and on PATH.
+
+Environment rules:
+- Edit files only inside this repository.
+- Do not commit, amend, rebase, merge, switch branches, or push. The harness captures your changes from the working tree, including new files.
+- Do not install packages. Package indexes and source remotes are not available.
+- Do not start subagents or other agents, use other models, or resume other sessions.
+
+When you finish, reply with a short summary of what you changed, how you verified it, and any assumptions you made.
+
+The issue follows.
+----------------------------------------------------------------------
